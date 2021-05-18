@@ -1,5 +1,6 @@
 import boto3
 from botocore.exceptions import ClientError
+import datetime
 
 
 class EmailHandler:
@@ -52,7 +53,7 @@ class EmailHandler:
                     },
                     'Subject': {
                         'Charset': self.CHARSET,
-                        'Data': self.DEFAULT_SUBJECT,
+                        'Data': "{}: {}".format(self.DEFAULT_SUBJECT, str(datetime.datetime.now().strftime("%c"))),
                     },
                 },
                 Source=self.SENDER,

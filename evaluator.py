@@ -1,6 +1,7 @@
 from email_handler import EmailHandler
 from property_dao import PropertyDao
 from daft_scraper import DaftScraper
+from metrics_helper import MetricsHelper
 
 
 class Evaluator:
@@ -19,6 +20,7 @@ class Evaluator:
         self._daft_scraper = DaftScraper(self._locations, self._price_range)
         self._property_dao = PropertyDao()
         self._email_handler = EmailHandler()
+        self._metrics_helper = MetricsHelper() 
 
     def run(self):
         _current_daft_snapshot = self._daft_scraper.query_all_properties()
@@ -27,6 +29,7 @@ class Evaluator:
         _db_daft_snapshot_ids = self._return_property_ids(_db_daft_snapshot)
 
         print(len(_current_daft_snapshot))
+        self._metrics_helper.put_metric_data("NumberOfPropertiesReturned", len(_current_daft_snapshot), "Count") 
         _new_properties = list(filter(lambda x: x.id not in _db_daft_snapshot_ids, _current_daft_snapshot))
         print(len(_new_properties))
         print(_new_properties)
