@@ -1,0 +1,8 @@
+.ipynb_checkpoints/**
+__pycache__/**
+/JupyterTestLab.ipynb
+/log_daft.log
+/tbody
+/td
+/tr
+/db.json
